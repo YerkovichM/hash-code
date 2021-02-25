@@ -7,6 +7,7 @@ public class Road {
     public int end;
     public String name;
     public int L;
+    public Intersection intersection;
 
     public boolean isGreenLight;
     public LinkedList<Car> carsInQueue;

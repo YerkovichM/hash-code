@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class FileUtils {
     public static Input read(String path) {
@@ -14,10 +16,20 @@ public class FileUtils {
             int st = scanner.nextInt();
             int crs = scanner.nextInt();
             int pnt = scanner.nextInt();
+            List<Intersection> intersections = Stream.iterate(0, i -> i < in, i -> i + 1)
+                    .map(i -> {
+                        Intersection intersection = new Intersection();
+                        intersection.name = i;
+                        return intersection;
+                    })
+                    .collect(Collectors.toList());
             Map<String, Road> roads = new HashMap<>();
             for (int i = 0; i < st; i++) {
                 Road road = new Road(scanner.nextInt(), scanner.nextInt(), scanner.next(), scanner.nextInt());
                 roads.put(road.name, road);
+                Intersection intersection = intersections.get(road.end);
+                intersection.inputRoads.add(road);
+                road.intersection = intersection;
             }
             List<Car> cars = new ArrayList<>();
             for (int i = 0; i < crs; i++) {
