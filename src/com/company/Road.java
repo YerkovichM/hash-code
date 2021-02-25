@@ -1,10 +1,15 @@
 package com.company;
 
+import java.util.LinkedList;
+
 public class Road {
-    int start;
-    int end;
-    String name;
-    int L;
+    public int start;
+    public int end;
+    public String name;
+    public int L;
+
+    public boolean isGreenLight;
+    public LinkedList<Car> carsInQueue;
 
     public Road(int start, int end, String name, int l) {
         this.start = start;
