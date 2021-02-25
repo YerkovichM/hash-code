@@ -16,7 +16,8 @@ public class FileUtils {
             int st = scanner.nextInt();
             int crs = scanner.nextInt();
             int pnt = scanner.nextInt();
-            List<Intersection> intersections = Stream.iterate(0, i -> i < in, i -> i + 1)
+            List<Intersection> intersections = Stream.iterate(0,  i -> i + 1)
+                    .limit(in)
                     .map(i -> {
                         Intersection intersection = new Intersection();
                         intersection.name = i;
