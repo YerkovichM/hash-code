@@ -13,5 +13,6 @@ public class Car {
 
     public Car(List<Road> roads) {
         this.roads = roads;
+        currentRoad = roads.get(0);
     }
 }

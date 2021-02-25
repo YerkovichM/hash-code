@@ -1,20 +1,14 @@
 package com.company;
 
-import com.company.Car;
-import com.company.FileUtils;
-import com.company.Input;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        Input input = FileUtils.read("");
+        Input input = FileUtils.read("a.txt");
 
         final int Duration = input.time;
 

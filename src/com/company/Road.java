@@ -12,7 +12,7 @@ public class Road {
 
     public int LastTimeSwitched = - 1;
     public boolean isGreenLight;
-    public LinkedList<Car> carsInQueue;
+    public LinkedList<Car> carsInQueue = new LinkedList<>();
 
     public Intersection intersection;
 
