@@ -27,9 +27,10 @@ public class FileUtils {
             Map<String, Road> roads = new HashMap<>();
             for (int i = 0; i < st; i++) {
                 Road road = new Road(scanner.nextInt(), scanner.nextInt(), scanner.next(), scanner.nextInt());
+                road.LastTimeSwitched = time;
                 roads.put(road.name, road);
                 Intersection intersection = intersections.get(road.end);
-                intersection.inputRoads.add(road);
+                intersection.connectedInputRoads.add(road);
                 road.intersection = intersection;
             }
             List<Car> cars = new ArrayList<>();

@@ -7,7 +7,9 @@ public class Car {
     public int timeToEndOfRoad;
     public boolean inQueue;
     public Road currentRoad;
+    public int roadId;
     public int numberInQueue;
+
 
     public Car(List<Road> roads) {
         this.roads = roads;
