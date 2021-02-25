@@ -52,9 +52,9 @@ public class FileUtils {
         try(FileWriter writer= new FileWriter(fileName)){
             writer.write(intersections.size() + "\n");
             for(Intersection intersection : intersections){
-                writer.write(intersection.trafficShedule.size()+"\n");
-                for (Map.Entry<String, Integer> entry: intersection.trafficShedule.entrySet()){
-                    writer.write(entry.getKey() + " " + entry.getValue() + "\n");
+                writer.write(intersection.connectedInputRoads.size()+"\n");
+                for(Road r: intersection.connectedInputRoads){
+                    writer.write(r.name + " " + r.cycle + "\n");
                 }
             }
             writer.flush();

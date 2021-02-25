@@ -4,6 +4,7 @@ import com.company.Car;
 import com.company.FileUtils;
 import com.company.Input;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         Input input = FileUtils.read("");
 
@@ -32,8 +33,8 @@ public class Main {
             }
 
             road.cycle = (int)Math.ceil((double)(road.turnOnsSeconds.stream().mapToInt(Integer::intValue).sum()) / road.turnOnsSeconds.size());
-
         });
+        FileUtils.write("result.txt" , intersections);
     }
 
     private static void goThroughIntersections (List<Intersection> intersections, int turn) {
