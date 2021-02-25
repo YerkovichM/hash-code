@@ -42,7 +42,7 @@ public class FileUtils {
                 }
                 cars.add(new Car(localRoads));
             }
-            return new Input(time, in, pnt, roads, cars);
+            return new Input(time, in, pnt, roads, cars, intersections);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

@@ -17,12 +17,9 @@ public class Main {
 
         final int Duration = input.time;
 
-        List<Intersection> intersections;
-        List<Road> roads;
-        final int numberOfCars;
-
-        final List<Car> carList = new ArrayList<Car>();
-
+        List<Intersection> intersections = input.intersections;
+        List<Road> roads = new ArrayList<>(input.roads.values());
+        final List<Car> carList = input.cars;
         for (int i = 0; i < Duration; i++ ) {
 
             goThroughIntersections(intersections, i);
