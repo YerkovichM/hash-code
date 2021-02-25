@@ -2,6 +2,8 @@ package com.company;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class FileUtils {
@@ -31,5 +33,17 @@ public class FileUtils {
             e.printStackTrace();
         }
         return null;
+    }
+     public static void write(String fileName ,List<Intersection> intersections) throws IOException {
+        try(FileWriter writer= new FileWriter(fileName)){
+            writer.write(intersections.size() + "\n");
+            for(Intersection intersection : intersections){
+                writer.write(intersection.trafficShedule.size()+"\n");
+                for (Map.Entry<String, Integer> entry: intersection.trafficShedule.entrySet()){
+                    writer.write(entry.getKey() + " " + entry.getValue() + "\n");
+                }
+            }
+            writer.flush();
+        }
     }
 }
