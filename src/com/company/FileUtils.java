@@ -59,13 +59,18 @@ public class FileUtils {
                 .collect(Collectors.toList());
 
         try (FileWriter writer = new FileWriter(fileName)) {
-            writer.write(managedIntersections.size() + "\n");
-            for (Intersection intersection : managedIntersections) {
+//            writer.write(managedIntersections.size() + "\n");
+            writer.write(intersections.size() + "\n");
+//            for (Intersection intersection : managedIntersections) {
+            for (Intersection intersection : intersections) {
                 writer.write(intersection.name + "\n");
-                writer.write(calculateManagedRoads(intersection)+ "\n");
+//                writer.write(calculateManagedRoads(intersection)+ "\n");
+                writer.write(intersection.connectedInputRoads.size() + "\n");
                 for (Road r : intersection.connectedInputRoads) {
                     if (r.cycle > 0) {
                         writer.write(r.name + " " + r.cycle + "\n");
+                    } else  {
+                        writer.write(r.name + " " + 1 + "\n");
                     }
                 }
             }

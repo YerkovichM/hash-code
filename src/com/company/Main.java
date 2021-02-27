@@ -45,15 +45,17 @@ public class Main {
             Road changing = getHighestPriorityRoad(intersection);
             Road lastTurned = getLastTurnedRoad(intersection);
 
+            boolean changed = false;
 
-
-            if(changing != null) {
+            if(changing != null && changing != lastTurned && !changing.carsInQueue.isEmpty()) {
                 changing.isGreenLight = true;
                 changing.turnedOn  =turn;
+                changed = true;
             }
 
-            if(lastTurned != changing && lastTurned != null) {
+            if(changed && lastTurned != null) {
                 turnOffLight(lastTurned, turn);
+//                changed = false;
             }
 
             //turn off if not used
