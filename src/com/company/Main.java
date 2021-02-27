@@ -30,9 +30,9 @@ public class Main {
         }
 
         roads.forEach(road -> {
-            if(road.isGreenLight) {
-                road.turnOnsSeconds.add(Duration - road.LastTimeSwitched);
-            }
+//            if(road.isGreenLight) {
+//                road.turnOnsSeconds.add(Duration - road.LastTimeSwitched);
+//            }
 
             road.cycle = (int)Math.ceil((double)(road.turnOnsSeconds.stream().mapToInt(Integer::intValue).sum()) / road.turnOnsSeconds.size());
         });
@@ -45,19 +45,31 @@ public class Main {
             Road changing = getHighestPriorityRoad(intersection);
             Road lastTurned = getLastTurnedRoad(intersection);
 
+
+
             if(changing != null) {
                 changing.isGreenLight = true;
                 changing.turnedOn  =turn;
-                //todo: add log
             }
-            if(lastTurned != changing && lastTurned != null) {
-                lastTurned.isGreenLight = false;
 
-                lastTurned.turnOnsSeconds.add(turn - lastTurned.turnedOn);
-                //todo: add log
+            if(lastTurned != changing && lastTurned != null) {
+                turnOffLight(lastTurned, turn);
             }
+
+            //turn off if not used
+            if(lastTurned != null && lastTurned.carsInQueue.isEmpty()) {
+                turnOffLight(lastTurned, turn);
+            }
+
         });
     }
+
+    private static void turnOffLight(Road road, int turn) {
+        road.isGreenLight = false;
+
+        road.turnOnsSeconds.add(turn - road.turnedOn);
+    }
+
 
     private static void moveAllOn1Second (List<Car> carList, int step) {
         carList.forEach(car -> {
