@@ -16,7 +16,7 @@ public class FileUtils {
             int st = scanner.nextInt();
             int crs = scanner.nextInt();
             int pnt = scanner.nextInt();
-            List<Intersection> intersections = Stream.iterate(0,  i -> i + 1)
+            List<Intersection> intersections = Stream.iterate(0, i -> i + 1)
                     .limit(in)
                     .map(i -> {
                         Intersection intersection = new Intersection();
@@ -48,17 +48,43 @@ public class FileUtils {
         }
         return null;
     }
-     public static void write(String fileName ,List<Intersection> intersections) throws IOException {
-        try(FileWriter writer= new FileWriter(fileName)){
-            writer.write(intersections.size() + "\n");
-            for(Intersection intersection : intersections){
-                writer.write(intersection.name +"\n");
-                writer.write(intersection.connectedInputRoads.size()+"\n");
-                for(Road r: intersection.connectedInputRoads){
-                    writer.write(r.name + " " + r.cycle + "\n");
+
+    public static void write(String fileName, List<Intersection> intersections) throws IOException {
+
+        List<Intersection> managedIntersections = intersections.stream()
+                .filter(intersection -> intersection
+                        .connectedInputRoads
+                        .stream()
+                        .anyMatch(road -> road.cycle > 0))
+                .collect(Collectors.toList());
+
+        try (FileWriter writer = new FileWriter(fileName)) {
+            writer.write(managedIntersections.size() + "\n");
+            for (Intersection intersection : managedIntersections) {
+                writer.write(intersection.name + "\n");
+                writer.write(calculateManagedRoads(intersection)+ "\n");
+                for (Road r : intersection.connectedInputRoads) {
+                    if (r.cycle > 0) {
+                        writer.write(r.name + " " + r.cycle + "\n");
+                    }
                 }
             }
             writer.flush();
         }
+    }
+
+    public static List<String> getInputFileNames() {
+        File inputDirectory = new File("input/");
+        return Arrays.stream(inputDirectory.listFiles())
+                .map(File::getName)
+                .collect(Collectors.toList());
+    }
+
+    private static long calculateManagedRoads(Intersection intersection) {
+        return intersection.connectedInputRoads
+                .stream()
+                .filter(road -> road.cycle > 0)
+                .count();
+
     }
 }

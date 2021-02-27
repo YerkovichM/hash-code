@@ -4,11 +4,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.company.FileUtils.getInputFileNames;
+
 public class Main {
 
     public static void main(String[] args) throws IOException {
+        List<String> processingFiles =  getInputFileNames();
+        for (String processingFile : processingFiles) {
+            processFile(processingFile);
+        }
+    }
 
-        Input input = FileUtils.read("a.txt");
+    private static void processFile(String fileName) throws IOException  {
+        Input input = FileUtils.read("input/" + fileName);
 
         final int Duration = input.time;
 
@@ -28,8 +36,9 @@ public class Main {
 
             road.cycle = (int)Math.ceil((double)(road.turnOnsSeconds.stream().mapToInt(Integer::intValue).sum()) / road.turnOnsSeconds.size());
         });
-        FileUtils.write("result.txt" , intersections);
+        FileUtils.write("result/" + fileName, intersections);
     }
+
 
     private static void goThroughIntersections (List<Intersection> intersections, int turn) {
         intersections.forEach(intersection -> {
@@ -108,7 +117,7 @@ public class Main {
         car.inQueue = false;
         car.currentRoad.intersection.lastTurnUsed = step;
 
-        if(car.roadId <= car.roads.size()) {
+        if(car.roadId < car.roads.size()) {
             car.currentRoad = car.roads.get(car.roadId);
             car.timeToEndOfRoad = car.currentRoad.L;
         } else {
